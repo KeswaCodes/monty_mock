@@ -1,0 +1,56 @@
+#include "monty.h"
+/**
+ *_push- pushes a new element to the top of a stack
+ *@stack: pointer too pointer of stack structure
+ *@line_number: line at which instruction appears
+ *Return: void
+ */
+
+void _push(stack_t **stack, unsigned int line_number)
+{
+
+stack_t *new_element;
+
+new_element = malloc(sizeof(stack_t));
+if (new_element == NULL)
+exit(EXIT_FAILURE);
+
+new_element->n = n;
+new_element->next = NULL;
+new_element->prev = NULL;
+  
+if (*stack == NULL)
+*stack = new_element;
+
+else
+{
+(*stack)->prev = new_element;
+new_element->next = *stack;
+*stack = new_element;
+}
+
+}
+
+/**
+ *_pall- prints all elements of stack
+ *@stack: pointer to first element on stack
+ *@line_number: the line on which error occurs
+ *Return: void
+ */
+
+void _pall(stack_t **stack, unsigned int line_number)
+{
+stack_t *temp = *stack;
+  
+if (temp == NULL)
+return;
+
+
+while (temp != NULL)
+{
+printf("%d\n", temp->n);
+temp = temp->next;
+}
+
+
+}

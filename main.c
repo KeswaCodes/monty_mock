@@ -9,9 +9,10 @@
 
 int main(int argc, char *argv[])
 {
-  char buffer[1024];
+  char buffer[1024], *opcode, *opcode_value;
   FILE *file = NULL;
-
+  int value, line_number = 0;
+  
   if (argc > 2)
     exit(EXIT_FAILURE);
   
@@ -29,7 +30,23 @@ int main(int argc, char *argv[])
     }
 
   while (fgets(buffer, 256, file) != NULL)
-    printf("%s\n", buffer);
+    {
+      line_number++;
+      opcode = strtok(buffer, " ");
+      if (opcode == NULL)
+	continue;
+
+      opcode_value = strtok(NULL, " ");
+
+      printf("%s\n", opcode);
+      if (opcode_value != NULL)
+	{
+      value = atoi(opcode_value);
+      printf("%d\n", value);
+	}
+
+    }
+
   
   return (0);
     

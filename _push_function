@@ -6,7 +6,7 @@
  *Return: void
  */
 
-void _push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **stack, unsigned int line_number, int value)
 {
 
 stack_t *new_element;
@@ -15,7 +15,7 @@ new_element = malloc(sizeof(stack_t));
 if (new_element == NULL)
 exit(EXIT_FAILURE);
 
-new_element->n = n;
+new_element->n = value;
 new_element->next = NULL;
 new_element->prev = NULL;
   
@@ -45,12 +45,31 @@ stack_t *temp = *stack;
 if (temp == NULL)
 return;
 
-
 while (temp != NULL)
 {
 printf("%d\n", temp->n);
 temp = temp->next;
 }
 
+
+}
+
+/**
+*get_opcode_function- gets the function associated with the opcode
+*@opcode: the operation code
+*@value: element to be pushed in using the opcode
+*Return: void
+*/
+
+void get_opcode_function(stack_t **stack, unsigned int line_number, char *opcode, *int value)
+{
+
+if (strcmp(opcode, "push") == 0)
+_push(stack, line_number, value);
+
+else if (strcmp(opcode, "pall"))
+_pall(stack);
+
+else
 
 }

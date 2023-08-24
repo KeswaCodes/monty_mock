@@ -8,6 +8,18 @@
 #include <fcntl.h>
 #include <string.h>
 /**
+ *struct opcodeValue - a structure of an opcode & it's value
+ *@opcode: operation code
+ *@value: value of the opcode
+ *Used to store line read from file
+ */
+struct opcodeValue{
+  char *opcode;
+  int value;
+};
+
+
+/**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
  * @prev: points to the previous element of the stack (or queue)
@@ -37,4 +49,8 @@ typedef struct instruction_s
 } instruction_t;
 
 
+void (*get_opcode_function(char *opcode))(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _get_opcode_and_value(FILE *file, int flag);
 #endif

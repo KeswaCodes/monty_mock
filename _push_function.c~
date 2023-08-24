@@ -6,19 +6,25 @@
  *Return: void
  */
 
-void _push(stack_t **stack, unsigned int line_number, int value)
+void _push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 
 stack_t *new_element;
+int value;
+
+value = _get_opcode_value();
 
 new_element = malloc(sizeof(stack_t));
 if (new_element == NULL)
+{
+fprintf(stderr, "Error: malloc failed\n");
 exit(EXIT_FAILURE);
+}
 
 new_element->n = value;
 new_element->next = NULL;
 new_element->prev = NULL;
-  
+
 if (*stack == NULL)
 *stack = new_element;
 
@@ -38,10 +44,10 @@ new_element->next = *stack;
  *Return: void
  */
 
-void _pall(stack_t **stack, unsigned int line_number)
+void _pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 stack_t *temp = *stack;
-  
+
 if (temp == NULL)
 return;
 
@@ -51,25 +57,5 @@ printf("%d\n", temp->n);
 temp = temp->next;
 }
 
-
-}
-
-/**
-*get_opcode_function- gets the function associated with the opcode
-*@opcode: the operation code
-*@value: element to be pushed in using the opcode
-*Return: void
-*/
-
-void get_opcode_function(stack_t **stack, unsigned int line_number, char *opcode, *int value)
-{
-
-if (strcmp(opcode, "push") == 0)
-_push(stack, line_number, value);
-
-else if (strcmp(opcode, "pall"))
-_pall(stack);
-
-else
 
 }

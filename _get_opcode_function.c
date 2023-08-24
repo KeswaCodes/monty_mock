@@ -1,0 +1,70 @@
+#include "monty.h"
+
+/**
+ *_get_opcode_and_value- gets the value of the opcode
+ *@file: file to read from
+ *@flag: 1 returns opcode, 0 returns opcode value
+ *Return: opcode or value of opcode depending on flag
+ */
+
+void _get_opcode_and_value(FILE *file, int flag, struct opcodeValue *result)
+{
+char buffer[1024], *opcode, *opcode_value;
+int value, line_number = 0;
+
+while (fgets(buffer, 1024, file) != NULL)
+{
+line_number++;
+opcode = strtok(buffer, " \t\n");
+if (opcode == NULL)
+continue;
+result->opcode = opcode;
+while (opcode != NULL)
+opcode_value = strtok(NULL, " \t\n");
+
+if (opcode_value != NULL)
+{
+value = atoi(opcode_value);
+if (value == 0)
+{
+fprintf(stderr, "L%d: usage: push integer\n", line_number);
+exit(EXIT_FAILURE);
+}
+result->value = value;
+}
+
+}
+
+if (opcode[0] != 'p')
+{
+fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+exit(EXIT_FAILURE);
+}
+ 
+}
+
+
+
+/**
+ *get_opcode_function- gets the function associated with the opcode
+ *@opcode: the operation code
+ *Return: void
+ */
+
+void (*get_opcode_function(char *opcode))(stack_t **, unsigned int)
+{
+
+instruction_t op_func_ptr[] = {
+{"push", _push},
+{"pall", _pall}
+};
+
+if (strcmp(opcode, "push") == 0)
+return (op_func_ptr[0].f);
+
+else if (strcmp(opcode, "pall") == 0)
+return (op_func_ptr[1].f);
+
+else
+return (NULL);
+}
